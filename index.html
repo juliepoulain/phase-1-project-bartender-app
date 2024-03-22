@@ -1,34 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-  <meta charset="UTF-8" />
-  <title>Flatiron Bartender</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="" />
-  <style></style>
-  <script src="./src/index.js"></script>
-  <title>Flatiron Bartender</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flatiron Bartender</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <style></style>
+    <script src="./src/index.js"></script>
+    <title>Flatiron Bartender</title>
   </head>
   <body>
 
-    <img src="img_la.jpg" alt="LA" style="width: 100%" />
 
-
-    <div class="">
-      <h1>This is a Heading</h1>
-      <p>This is a paragraph.</p>
-      <p>This is another paragraph.</p>
 
     <div id="main-title">
       <h1>BARTENDER BUDDY</h1>
     </div>
 
 
-    <div>
+    <div id="form">
       <form>
-        <h2>What cocktail ingredients do you have?</h2>
+        <h4>What cocktail ingredients do you have?</h4>
         <label>1st Ingredient:</label>
-        <select name="select-ingredient1" id="ingredient-select">
+        <select name="select-ingredient1" id="ingredient-select1">
           <option value="">--Please choose an option--</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
@@ -39,7 +33,7 @@
         </select>
         <br />
         <label>2nd Ingredient:</label>
-        <select name="select-ingredient2" id="ingredient-select">
+        <select name="select-ingredient2" id="ingredient-select2">
           <option value="">--Please choose an option--</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
@@ -50,7 +44,7 @@
         </select>
         <br />
         <label>3rd Ingredient:</label>
-        <select name="select-ingredient2" id="ingredient-select">
+        <select name="select-ingredient3" id="ingredient-select3">
           <option value="">--Please choose an option--</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
@@ -60,8 +54,41 @@
           <option>Placeholder</option>
         </select>
         <br />
-        <button id="form-submit">See Cocktail Options</button>
+        <button id="form-submit">SEE COCKTAIL OPTIONS</button>
       </form>
+
+      <style>
+        .box {
+          border: 1px solid #0c0000;
+          padding: 10px;
+          width: 200px;
+        }
+      </style>
+      <div class="box">
+        <h2>Available Drinks</h2>
+        <ul>
+          <li>Drink 1</li>
+          <li>Drink 2</li>
+          <li>Drink 3</li>
+          <li>Drink 4</li>
+        </ul>
+      </div>
+      <div class="favorites">
+        <h2>Favorites</h2>
+        <ul id="favoritesList"></ul>
+      </div>
+   
+
+
+      <div id="display-image">
+        <h4 id="cocktail-name">Cocktail Name</h4>
+        <img id="cocktail-image" src="./assets/placeholder.jpg" alt ="placeholder"/>
+        <br>
+        <button>SAVE TO FAVORITES</button>
+      </div>
+
+
+
        <style>
       .box {
         border: 1px solid #0c0000;
@@ -98,7 +125,11 @@
     </div>
     </div>
 
+
       
     </div>
+
+
+
   </body>
 </html>
