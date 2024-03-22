@@ -1,3 +1,6 @@
+import {API_KEY} from "/api-key/config.js";
+console.log(API_KEY)
+
 document.addEventListener("DOMContentLoaded", () => {
 
 

@@ -6,21 +6,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="" />
     <style></style>
-    <script src="./src/index.js"></script>
+    <script type ="module" src="./src/index.js"></script>
     <title>Flatiron Bartender</title>
   </head>
   <body>
-
-
-
     <div id="main-title">
       <h1>BARTENDER BUDDY</h1>
     </div>
 
-
     <div id="form">
       <form>
-        <h4>What cocktail ingredients do you have?</h4>
+        <h3>What cocktail ingredients do you have?</h3>
         <label>1st Ingredient:</label>
         <select name="select-ingredient1" id="ingredient-select1">
           <option value="">--Please choose an option--</option>
@@ -56,80 +52,80 @@
         <br />
         <button id="form-submit">SEE COCKTAIL OPTIONS</button>
       </form>
+    </div>
 
-      <style>
-        .box {
-          border: 1px solid #0c0000;
-          padding: 10px;
-          width: 200px;
-        }
-      </style>
-      <div class="box">
-        <h2>Available Drinks</h2>
-        <ul>
-          <li>Drink 1</li>
-          <li>Drink 2</li>
-          <li>Drink 3</li>
-          <li>Drink 4</li>
-        </ul>
-      </div>
-      <div class="favorites">
-        <h2>Favorites</h2>
-        <ul id="favoritesList"></ul>
-      </div>
-   
-
-
-      <div id="display-image">
-        <h4 id="cocktail-name">Cocktail Name</h4>
-        <img id="cocktail-image" src="./assets/placeholder.jpg" alt ="placeholder"/>
-        <br>
-        <button>SAVE TO FAVORITES</button>
-      </div>
-
-
-
-       <style>
-      .box {
-        border: 1px solid #0c0000;
-        padding: 10px;
-        width: 200px;
-      }
-    </style>
     <div class="box">
-      <h2>Available Drinks</h2>
+      <h3>Available Drinks</h3>
       <ul>
-        <li>Drink 1</li>
-        <li>Drink 2</li>
-        <li>Drink 3</li>
-        <li>Drink 4</li>
+        <ol>
+          Drink 1
+        </ol>
+        <ol>
+          Drink 2
+        </ol>
+        <ol>
+          Drink 3
+        </ol>
+        <ol>
+          Drink 4
+        </ol>
       </ul>
     </div>
-    
-     <div>
-        <h2>Ingredients</h2>
-<ul>
-    <li></li>
-    <li></li>
-    <li></li>
-</ul>
-    </div>
-    <div><h2>Recipe </h2>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
 
-
-    </div>
+    <div class="favorites">
+      <h3>Favorites</h3>
+      <ul id="favoritesList">
+        <ol>
+          placeholder
+        </ol>
+        <ol>
+          placeholder
+        </ol>
+        <ol>
+          placeholder
+        </ol>
+      </ul>
     </div>
 
-
-      
+    <div id="display-image">
+      <h3 id="cocktail-name">Cocktail Name</h3>
+      <img
+        id="cocktail-image"
+        src="./assets/placeholder.jpg"
+        alt="placeholder"
+      />
+      <br />
+      <button>SAVE TO FAVORITES</button>
     </div>
 
+    <div>
+      <h3>Ingredients</h3>
+      <ul>
+        <ol>
+          placeholder
+        </ol>
+        <ol>
+          placeholder
+        </ol>
+        <ol>
+          placeholder
+        </ol>
+      </ul>
+    </div>
 
-
+    <div>
+      <h3>Recipe</h3>
+      <ul>
+        <ol>
+          placeholder
+        </ol>
+        <ol>
+          placeholder
+        </ol>
+        <ol>
+          placeholder
+        </ol>
+      </ul>
+    </div>
   </body>
 </html>
