@@ -4,21 +4,24 @@ console.log(API_KEY);
 const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
 //JP: fetches ingredients and populates select list with ingredient options
-const ingredientSelect1 = document.querySelector("#select-ingredient1");
-const ingredientSelect2 = document.querySelector("#select-ingredient2");
-const ingredientSelect3 = document.querySelector("#select-ingredient3");
+const ingredientSelect1 = document.querySelector("#ingredient-select1");
+const ingredientSelect2 = document.querySelector("#ingredient-select2");
+const ingredientSelect3 = document.querySelector("#ingredient-select3");
 const populateIngredients = () => {
-  fetch(`${url}i=list`)
+  fetch(`${url}list.php?i=list`)
     .then((r) => r.json())
-    .then((ingredients) => {
-      console.log(ingredients);
-      for (const ingredient of ingredients) {
-          const selectOption = document.createElement("option");
-          selectOption.textContent = ingredient;
-          ingredientSelect1.append(selectOption);
-          ingredientSelect2.append(selectOption);
-          ingredientSelect3.append(selectOption);
-      };
+    .then((data) => {
+      for (const ingredient of data.drinks) {
+        console.log(ingredient);
+        const selectOption = document.createElement("option");
+        selectOption.value = ingredient.strIngredient1;
+        selectOption.textContent = ingredient.strIngredient1;
+        const selectOption2 = selectOption.cloneNode("true");
+        const selectOption3 = selectOption.cloneNode("true");
+        ingredientSelect1.appendChild(selectOption);
+        ingredientSelect2.appendChild(selectOption2);
+        ingredientSelect3.appendChild(selectOption3);
+      }
     });
 };
 
@@ -29,11 +32,11 @@ const createSubmitListener = () => {
     e.preventDefault();
     console.log("Form Submitted");
     const formSelections = {
-        Ing1: e.target["select-ingredient1"].value,
-        Ing2: e.target["select-ingredient2"].value,
-        Ing3: e.target["select-ingredient3"].value,
-      };
-    console.log(formSelections)
+      Ing1: e.target["select-ingredient1"].value,
+      Ing2: e.target["select-ingredient2"].value,
+      Ing3: e.target["select-ingredient3"].value,
+    };
+    console.log(formSelections);
     handleSubmit(formSelections);
   });
 };
