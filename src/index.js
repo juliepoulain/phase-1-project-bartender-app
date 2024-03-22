@@ -3,6 +3,7 @@ console.log(API_KEY);
 
 const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
+
 //JP: fetches ingredients and populates select list with ingredient options
 const ingredientSelect1 = document.querySelector("#ingredient-select1");
 const ingredientSelect2 = document.querySelector("#ingredient-select2");
