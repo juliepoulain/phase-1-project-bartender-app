@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Flatiron Bartender</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="./style.css" />
     <style></style>
     <script type ="module" src="./src/index.js"></script>
     <title>Flatiron Bartender</title>
@@ -14,12 +14,12 @@
       <h1>BARTENDER BUDDY</h1>
     </div>
 
-    <div id="form">
-      <form>
+    <div id="formdiv">
+      <form id="form">
         <h3>What cocktail ingredients do you have?</h3>
         <label>1st Ingredient:</label>
-        <select name="select-ingredient1" id="ingredient-select1">
-          <option value="">--Please choose an option--</option>
+        <select class= "select" name="select-ingredient1" id="ingredient-select1">
+          <option>--Please choose an option--</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
@@ -30,7 +30,7 @@
         <br />
         <label>2nd Ingredient:</label>
         <select name="select-ingredient2" id="ingredient-select2">
-          <option value="">--Please choose an option--</option>
+          <option>--Please choose an option--</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
@@ -41,7 +41,7 @@
         <br />
         <label>3rd Ingredient:</label>
         <select name="select-ingredient3" id="ingredient-select3">
-          <option value="">--Please choose an option--</option>
+          <option>--Please choose an option--</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
           <option>Placeholder</option>
@@ -95,7 +95,7 @@
         alt="placeholder"
       />
       <br />
-      <button>SAVE TO FAVORITES</button>
+      <button id="favorites">SAVE TO FAVORITES</button>
     </div>
 
     <div>
