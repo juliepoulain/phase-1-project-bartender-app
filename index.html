@@ -11,21 +11,13 @@
   </head>
   <body>
 
-    <img src="img_la.jpg" alt="LA" style="width: 100%" />
-
-    <div class="">
-      <h1>This is a Heading</h1>
-      <p>This is a paragraph.</p>
-      <p>This is another paragraph.</p>
-
     <div id="main-title">
       <h1>BARTENDER BUDDY</h1>
     </div>
 
-
     <div id="form">
       <form>
-        <h2>What cocktail ingredients do you have?</h2>
+        <h4>What cocktail ingredients do you have?</h4>
         <label>1st Ingredient:</label>
         <select name="select-ingredient1" id="ingredient-select1">
           <option value="">--Please choose an option--</option>
@@ -59,8 +51,19 @@
           <option>Placeholder</option>
         </select>
         <br />
-        <button id="form-submit">See Cocktail Options</button>
+        <button id="form-submit">SEE COCKTAIL OPTIONS</button>
       </form>
+      </div>
+
+      <div id="display-image">
+        <h4 id="cocktail-name">Cocktail Name</h4>
+        <img id="cocktail-image" src="./assets/placeholder.jpg" alt ="placeholder"/>
+        <br>
+        <button>SAVE TO FAVORITES</button>
+      </div>
+
+
+
        <style>
       .box {
         border: 1px solid #0c0000;
@@ -78,8 +81,5 @@
       </ul>
     </div>
 
-      <form>test</form>
-      <div>comment</div>
-    </div>
   </body>
 </html>
