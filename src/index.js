@@ -12,13 +12,13 @@ const populateIngredients = () => {
     .then((r) => r.json())
     .then((ingredients) => {
       console.log(ingredients);
-      // for (const ingredient of ingredients) {
-      //     const selectOption = document.createElement("option");
-      //     selectOption.textContent = ingredient;
-      //     ingredientSelect1.append(selectOption);
-      //     ingredientSelect2.append(selectOption);
-      //     ingredientSelect3.append(selectOption);
-      // };
+      for (const ingredient of ingredients) {
+          const selectOption = document.createElement("option");
+          selectOption.textContent = ingredient;
+          ingredientSelect1.append(selectOption);
+          ingredientSelect2.append(selectOption);
+          ingredientSelect3.append(selectOption);
+      };
     });
 };
 
