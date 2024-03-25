@@ -80,30 +80,27 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
 };
 
 const availableDrinksClickEvent = () => {
-availableDrinkList.addEventListener('click', function(event) {
-  const clickedElement = event.target;
-  if (clickedElement.tagName === 'OL') {
-    const drinkId = clickedElement.id;
-    const drinkName = clickedElement.textContent; 
-    
-    const cocktailElement = document.querySelector("#cocktail-name")
-    cocktailElement.textContent = drinkName
-    console.log('Clicked drink ID:', drinkId);
-    console.log('Clicked drink Name:', drinkName);
-    fetch(`${url}lookup.php?i=${drinkId}`)
-    .then((r) => r.json())
-    .then((data) => {
-      const displayImageDiv = document.querySelector("#cocktail-image")
-    const drinkImg = data.drinks[0].strDrinkThumb
-    displayImageDiv.src = drinkImg;
-    displayImageDiv.alt = drinkName;
-    
-    console.log(drinkImg)
-    })
-  }
-});
-}
-
+  availableDrinkList.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    if (clickedElement.tagName === "OL") {
+      const drinkId = clickedElement.id;
+      const drinkName = clickedElement.textContent;
+      const cocktailElement = document.querySelector(".cocktail-name");
+      cocktailElement.textContent = drinkName;
+      console.log("Clicked drink ID:", drinkId);
+      console.log("Clicked drink Name:", drinkName);
+      fetch(`${url}lookup.php?i=${drinkId}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const displayImageDiv = document.querySelector("#cocktail-image");
+          const drinkImg = data.drinks[0].strDrinkThumb;
+          displayImageDiv.src = drinkImg;
+          displayImageDiv.alt = drinkName;
+          console.log(drinkImg);
+        });
+    }
+  });
+};
 
 const addSaveFavoriteClickEvent = () => {
   const saveFavoriteButtons = document.querySelectorAll("#favorites");
@@ -138,7 +135,7 @@ const main = () => {
   createSubmitListener();
   availableDrinksClickEvent();
   addSaveFavoriteClickEvent();
-  favoriteListClick()
+  getImageURL(11007);
 };
 
 //TO DO:
