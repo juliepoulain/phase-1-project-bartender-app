@@ -80,18 +80,23 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
 const addSaveFavoriteClickEvent = () => {
   const saveFavoriteButtons = document.querySelectorAll("#favorites");
   saveFavoriteButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const selectedDrink = document.querySelector("#coctail-name").textContent;
-      handleFavorite(selectedDrink);
+    button.addEventListener("click", (e) => {
+      const selectedDrink = document.querySelector(".cocktail-name").textContent;
+      const selectedDrinkId = selectedDrink.id;
+      handleFavorite(selectedDrink, selectedDrinkId);
     });
   });
 };
 
-const handleFavorite = (drinkName) => {
+const handleFavorite = (selectedDrink, selectedDrinkId) => {
   const favoritesList = document.querySelector("#favoritesList");
   const li = document.createElement("li");
-  li.textcontent = drinkName;
+  li.textContent = selectedDrink;
+  li.className = "favoriteItem";
+  li.id = selectedDrinkId;
   favoritesList.appendChild(li);
+  console.log(li);
+  createFavoriteListClickEvent();
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -102,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const main = () => {
   populateIngredients();
   createSubmitListener();
+  addSaveFavoriteClickEvent();
 };
 
 //TO DO:
@@ -123,7 +129,10 @@ const main = () => {
 //drinks list to have scroller
 //populate drink list with drinks with ALL ingredients, etc.
 
-
-const favoriteListClick = () => {
-
-}
+const createFavoriteListClickEvent = () => {
+  const favoriteItem = document.querySelector(".favoriteItem");
+  favoriteItem.addEventListener("click", (e) => {
+    console.log("favorite populated");
+  });
+  handleClick();
+};
