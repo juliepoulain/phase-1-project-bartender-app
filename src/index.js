@@ -12,7 +12,6 @@ const populateIngredients = () => {
     .then((r) => r.json())
     .then((data) => {
       for (const ingredient of data.drinks) {
-        console.log(ingredient);
         const selectOption = document.createElement("option");
         selectOption.value = ingredient.strIngredient1;
         selectOption.textContent = ingredient.strIngredient1;
@@ -27,21 +26,18 @@ const populateIngredients = () => {
 
 //JP: create submit event listener
 const createSubmitListener = () => {
-  const handleSubmit = (formSelections) => {
-    console.log("Form Selections:", formSelections);
+  const handleSubmit = (Ing1, Ing2, Ing3) => {
+    console.log("Form Selections:",Ing1,", ",Ing2, ", ",Ing3);
   };
 
   const form = document.querySelector("#form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     console.log("Form Submitted");
-    const formSelections = {
-      Ing1: e.target["select-ingredient1"].value,
-      Ing2: e.target["select-ingredient2"].value,
-      Ing3: e.target["select-ingredient3"].value,
-    };
-    console.log(formSelections);
-    handleSubmit(formSelections);
+    const Ing1 = e.target["select-ingredient1"].value;
+    const Ing2 = e.target["select-ingredient2"].value;
+    const Ing3 = e.target["select-ingredient3"].value;
+    handleSubmit(Ing1, Ing2, Ing3);
   });
 };
 
@@ -49,16 +45,12 @@ const createSubmitListener = () => {
 const populateDrinksInitial = () => {
   fetch(`${url}filter.php?c=Cocktail`)
     .then((r) => r.json())
-    .then((cocktails) => {
-      console.log(cocktails);
-    });
+    .then((cocktails) => {});
 };
 
 //PA: handle submit to refetch and repopulate drink list with filtered data based on selected ingredients
-const handleSubmit = () => {
-  const { Ing1, Ing2, Ing3 } = formSelections;
-
-  fetch(``)
+const handleSubmit = (Ing1, Ing2, Ing3) => {
+  fetch(`${url}filter.php?i=${Ing1}`)
     .then((r) => r.json())
     .then((data) => {});
 };
