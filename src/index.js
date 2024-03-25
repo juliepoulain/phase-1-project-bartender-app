@@ -53,6 +53,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
       for (const drink of data.drinks) {
         const ing1Ol = document.createElement("ol");
         ing1Ol.textContent = drink.strDrink;
+        ing1Ol.id = drink.idDrink;
         availableDrinkList.append(ing1Ol);
       }
     });
@@ -85,3 +86,21 @@ const main = () => {
   populateIngredients();
   createSubmitListener();
 };
+
+//TO DO:
+//PA: addClickEvent function from each populated drink in drinks.
+//Data will be called "drinkDataFull"
+//PA: handleClick function to populate cocktail name, picture, ingredients, recipe (pass things like drinkDataFull.)
+
+//BD: addSaveFavoriteClickEvent to create click event function for favorite button
+//BD: handleFavorite function to populate favorites list with drink name
+
+//JP: addClickEventFavorite function to add click events to favorites list items
+//JP: handleFavoritesClickEvent to repopulate cocktail name, picture, ing, recipe
+
+//addHoverEvent to picture
+//handleHoverEvent to display drink name on picture
+
+//POLISH:
+//css/layout to be prettier
+//drinks list to have scroller
