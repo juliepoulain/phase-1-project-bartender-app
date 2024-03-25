@@ -86,7 +86,7 @@ availableDrinkList.addEventListener('click', function(event) {
     const drinkId = clickedElement.id;
     const drinkName = clickedElement.textContent; 
     
-    const cocktailElement = document.querySelector("#cocktail-name")
+    const cocktailElement = document.querySelector(".cocktail-name")
     cocktailElement.textContent = drinkName
     console.log('Clicked drink ID:', drinkId);
     console.log('Clicked drink Name:', drinkName);
@@ -138,7 +138,7 @@ const main = () => {
   createSubmitListener();
   availableDrinksClickEvent();
   addSaveFavoriteClickEvent();
-  favoriteListClick()
+
 };
 
 //TO DO:
