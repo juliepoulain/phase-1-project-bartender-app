@@ -28,6 +28,11 @@ const populateIngredients = () => {
 
 //JP: create submit event listener
 const createSubmitListener = () => {
+  const handleSubmit = (formSelections) => {
+
+    console.log("Form Selections:", formSelections);
+  };
+
   const form = document.querySelector("#form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -52,7 +57,16 @@ const populateDrinksInitial = () => {
 };
 
 //PA: handle submit to refetch and repopulate drink list with filtered data based on selected ingredients
-const handleSubmit = () => {};
+const handleSubmit = () => {
+  const { Ing1, Ing2, Ing3 } = formSelections;
+
+  fetch(``)
+  .then((r) => r.json())
+  .then((data) => )
+
+};
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   //full execution
