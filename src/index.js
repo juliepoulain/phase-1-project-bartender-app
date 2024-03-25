@@ -23,7 +23,6 @@ const populateIngredients = () => {
     });
 };
 
-//JP: create submit event listener
 const createSubmitListener = () => {
   const logSubmit = (Ing1, Ing2, Ing3) => {
     console.log("Form Selections:", Ing1, ", ", Ing2, ", ", Ing3);
