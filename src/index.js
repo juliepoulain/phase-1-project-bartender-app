@@ -3,7 +3,6 @@ console.log(API_KEY);
 
 const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
-
 //JP: fetches ingredients and populates select list with ingredient options
 const ingredientSelect1 = document.querySelector("#ingredient-select1");
 const ingredientSelect2 = document.querySelector("#ingredient-select2");
@@ -29,7 +28,6 @@ const populateIngredients = () => {
 //JP: create submit event listener
 const createSubmitListener = () => {
   const handleSubmit = (formSelections) => {
-
     console.log("Form Selections:", formSelections);
   };
 
@@ -61,12 +59,9 @@ const handleSubmit = () => {
   const { Ing1, Ing2, Ing3 } = formSelections;
 
   fetch(``)
-  .then((r) => r.json())
-  .then((data) => )
-
-}; 
-
-
+    .then((r) => r.json())
+    .then((data) => {});
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   //full execution
