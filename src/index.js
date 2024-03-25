@@ -63,6 +63,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
       for (const drink of data.drinks) {
         const ing2Ol = document.createElement("ol");
         ing2Ol.textContent = drink.strDrink;
+        ing2Ol.id = drink.idDrink;
         availableDrinkList.append(ing2Ol);
       }
     });
@@ -72,10 +73,37 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
       for (const drink of data.drinks) {
         const ing3Ol = document.createElement("ol");
         ing3Ol.textContent = drink.strDrink;
+        ing3Ol.id = drink.idDrink;
         availableDrinkList.append(ing3Ol);
       }
     });
 };
+
+const availableDrinksClickEvent = () => {
+availableDrinkList.addEventListener('click', function(event) {
+  const clickedElement = event.target;
+  if (clickedElement.tagName === 'OL') {
+    const drinkId = clickedElement.id;
+    const drinkName = clickedElement.textContent; 
+    
+    const cocktailElement = document.querySelector("#cocktail-name")
+    cocktailElement.textContent = drinkName
+    console.log('Clicked drink ID:', drinkId);
+    console.log('Clicked drink Name:', drinkName);
+    fetch(`${url}lookup.php?i=${drinkId}`)
+    .then((r) => r.json())
+    .then((data) => {
+      const displayImageDiv = document.querySelector("#cocktail-image")
+    const drinkImg = data.drinks[0].strDrinkThumb
+    displayImageDiv.src = drinkImg;
+    displayImageDiv.alt = drinkName;
+    
+    console.log(drinkImg)
+    })
+  }
+});
+}
+
 
 const addSaveFavoriteClickEvent = () => {
   const saveFavoriteButtons = document.querySelectorAll("#favorites");
@@ -107,7 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
 const main = () => {
   populateIngredients();
   createSubmitListener();
+  availableDrinksClickEvent();
   addSaveFavoriteClickEvent();
+
 };
 
 //TO DO:
