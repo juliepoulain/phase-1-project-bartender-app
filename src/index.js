@@ -77,6 +77,23 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
     });
 };
 
+const addSaveFavoriteClickEvent = () => {
+  const saveFavoriteButtons = document.querySelectorAll("#favorites");
+  saveFavoriteButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedDrink = document.querySelector("#coctail-name").textContent;
+      handleFavorite(selectedDrink);
+    });
+  });
+};
+
+const handleFavorite = (drinkName) => {
+  const favoritesList = document.querySelector("#favoritesList");
+  const li = document.createElement("li");
+  li.textcontent = drinkName;
+  favoritesList.appendChild(li);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   //full execution
   main();
