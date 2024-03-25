@@ -105,11 +105,27 @@ availableDrinkList.addEventListener('click', function(event) {
 }
 
 
+const addSaveFavoriteClickEvent = () => {
+  const saveFavoriteButtons = document.querySelectorAll("#favorites");
+  saveFavoriteButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const selectedDrink = document.querySelector(".cocktail-name").textContent;
+      const selectedDrinkId = selectedDrink.id;
+      handleFavorite(selectedDrink, selectedDrinkId);
+    });
+  });
+};
 
-
-
-
-
+const handleFavorite = (selectedDrink, selectedDrinkId) => {
+  const favoritesList = document.querySelector("#favoritesList");
+  const li = document.createElement("li");
+  li.textContent = selectedDrink;
+  li.className = "favoriteItem";
+  li.id = selectedDrinkId;
+  favoritesList.appendChild(li);
+  console.log(li);
+  createFavoriteListClickEvent();
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   //full execution
@@ -119,7 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const main = () => {
   populateIngredients();
   createSubmitListener();
-  availableDrinksClickEvent()
+  availableDrinksClickEvent();
+  addSaveFavoriteClickEvent();
 
 };
 
@@ -140,3 +157,12 @@ const main = () => {
 //POLISH:
 //css/layout to be prettier
 //drinks list to have scroller
+//populate drink list with drinks with ALL ingredients, etc.
+
+const createFavoriteListClickEvent = () => {
+  const favoriteItem = document.querySelector(".favoriteItem");
+  favoriteItem.addEventListener("click", (e) => {
+    console.log("favorite populated");
+  });
+  handleClick();
+};
