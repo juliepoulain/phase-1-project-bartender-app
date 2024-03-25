@@ -109,7 +109,8 @@ const addSaveFavoriteClickEvent = () => {
   const saveFavoriteButtons = document.querySelectorAll("#favorites");
   saveFavoriteButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      const selectedDrink = document.querySelector(".cocktail-name").textContent;
+      const selectedDrink =
+        document.querySelector(".cocktail-name").textContent;
       const selectedDrinkId = selectedDrink.id;
       handleFavorite(selectedDrink, selectedDrinkId);
     });
@@ -137,7 +138,7 @@ const main = () => {
   createSubmitListener();
   availableDrinksClickEvent();
   addSaveFavoriteClickEvent();
-
+  favoriteListClick()
 };
 
 //TO DO:
