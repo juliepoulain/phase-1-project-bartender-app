@@ -3,7 +3,6 @@ console.log(API_KEY);
 
 const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
-//JP: fetches ingredients and populates select list with ingredient options
 const ingredientSelect1 = document.querySelector("#ingredient-select1");
 const ingredientSelect2 = document.querySelector("#ingredient-select2");
 const ingredientSelect3 = document.querySelector("#ingredient-select3");
@@ -26,10 +25,9 @@ const populateIngredients = () => {
 
 //JP: create submit event listener
 const createSubmitListener = () => {
-  const handleSubmit = (Ing1, Ing2, Ing3) => {
-    console.log("Form Selections:",Ing1,", ",Ing2, ", ",Ing3);
+  const logSubmit = (Ing1, Ing2, Ing3) => {
+    console.log("Form Selections:", Ing1, ", ", Ing2, ", ", Ing3);
   };
-
   const form = document.querySelector("#form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -37,22 +35,46 @@ const createSubmitListener = () => {
     const Ing1 = e.target["select-ingredient1"].value;
     const Ing2 = e.target["select-ingredient2"].value;
     const Ing3 = e.target["select-ingredient3"].value;
+    logSubmit(Ing1, Ing2, Ing3);
     handleSubmit(Ing1, Ing2, Ing3);
   });
 };
 
-//BD: fetches drinks and populates list with all for initial load
 const populateDrinksInitial = () => {
   fetch(`${url}filter.php?c=Cocktail`)
     .then((r) => r.json())
     .then((cocktails) => {});
 };
 
-//PA: handle submit to refetch and repopulate drink list with filtered data based on selected ingredients
+const availableDrinkList = document.querySelector("#availableDrinks");
 const handleSubmit = (Ing1, Ing2, Ing3) => {
   fetch(`${url}filter.php?i=${Ing1}`)
     .then((r) => r.json())
-    .then((data) => {});
+    .then((data) => {
+      for (const drink of data.drinks) {
+        const ing1Ol = document.createElement("ol");
+        ing1Ol.textContent = drink.strDrink;
+        availableDrinkList.append(ing1Ol);
+      }
+    });
+  fetch(`${url}filter.php?i=${Ing2}`)
+    .then((r) => r.json())
+    .then((data) => {
+      for (const drink of data.drinks) {
+        const ing2Ol = document.createElement("ol");
+        ing2Ol.textContent = drink.strDrink;
+        availableDrinkList.append(ing2Ol);
+      }
+    });
+  fetch(`${url}filter.php?i=${Ing3}`)
+    .then((r) => r.json())
+    .then((data) => {
+      for (const drink of data.drinks) {
+        const ing3Ol = document.createElement("ol");
+        ing3Ol.textContent = drink.strDrink;
+        availableDrinkList.append(ing3Ol);
+      }
+    });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
