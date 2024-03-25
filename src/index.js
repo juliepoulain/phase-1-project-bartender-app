@@ -121,3 +121,9 @@ const main = () => {
 //POLISH:
 //css/layout to be prettier
 //drinks list to have scroller
+//populate drink list with drinks with ALL ingredients, etc.
+
+
+const favoriteListClick = () => {
+
+}
