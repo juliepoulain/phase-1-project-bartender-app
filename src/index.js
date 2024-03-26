@@ -6,6 +6,8 @@ const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 const ingredientSelect1 = document.querySelector("#ingredient-select1");
 const ingredientSelect2 = document.querySelector("#ingredient-select2");
 const ingredientSelect3 = document.querySelector("#ingredient-select3");
+
+//adds available drink ingredients from API to 3 dropdown menus
 const populateIngredients = () => {
   fetch(`${url}list.php?i=list`)
     .then((r) => r.json())
@@ -23,10 +25,8 @@ const populateIngredients = () => {
     });
 };
 
+//adds submit listener to see cocktail ingredients form and creates variables for ing1, ing2, and ing3. Invokes handleSubmit
 const createSubmitListener = () => {
-  const logSubmit = (Ing1, Ing2, Ing3) => {
-    console.log("Form Selections:", Ing1, ", ", Ing2, ", ", Ing3);
-  };
   const form = document.querySelector("#form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -34,25 +34,28 @@ const createSubmitListener = () => {
     const Ing1 = e.target["select-ingredient1"].value;
     const Ing2 = e.target["select-ingredient2"].value;
     const Ing3 = e.target["select-ingredient3"].value;
-    logSubmit(Ing1, Ing2, Ing3);
     handleSubmit(Ing1, Ing2, Ing3);
   });
 };
 
-const populateDrinksInitial = () => {
-  fetch(`${url}filter.php?c=Cocktail`)
-    .then((r) => r.json())
-    .then((cocktails) => {});
-};
-
 let selectedDrink;
-
 const availableDrinkList = document.querySelector("#availableDrinks");
+
+//when invoked from submit form event:
+//step 1: refresh available drink list
+//step 2: fetch drinks from API based on FIRST ingredient selection query.
+//step 3: Populates available drink list with all avaialble drinks based on query inside new LIs
+//step 4: adds event listener to new LIs
+//step 5: event listener, when triggered, fetches drink information by Id
+//step 6: event listener, when triggered, adds applicable elements to DOM from API
+//step 7: repeat steps 2-6 for ing2, and ing3 selections
+
 const handleSubmit = (Ing1, Ing2, Ing3) => {
   availableDrinkList.innerHTML = "";
   fetch(`${url}filter.php?i=${Ing1}`)
     .then((r) => r.json())
     .then((data) => {
+      //loops through object items for data and adds event listener for new element
       for (const drink of data.drinks) {
         const ing1Li = document.createElement("li");
         ing1Li.addEventListener("click", (e) => {
@@ -65,10 +68,38 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
           fetch(`${url}lookup.php?i=${drinkId}`)
             .then((r) => r.json())
             .then((data) => {
+              //image
               const displayImageDiv = document.querySelector("#cocktail-image");
               const drinkImg = data.drinks[0].strDrinkThumb;
               displayImageDiv.src = drinkImg;
               displayImageDiv.alt = drinkName;
+              //ingredient
+              const ingredientsList = document.getElementById("Ingredients-ul");
+              ingredientsList.innerHTML = "";
+              const ingredients = [];
+              for (let i = 1; i <= 15; i++) {
+                const ingredientName = data.drinks[0][`strIngredient${i}`];
+                const measure = data.drinks[0][`strMeasure${i}`];
+                if (ingredientName && ingredientName.trim() !== "") {
+                  ingredients.push(`${measure} ${ingredientName}`);
+                }
+              }
+              ingredients.forEach((ingredient) => {
+                const li = document.createElement("li");
+                li.textContent = ingredient;
+                ingredientsList.appendChild(li);
+              });
+              //recipe
+              const recipeList = document.getElementById("Recipe-ul");
+              recipeList.innerHTML = "";
+              const instructions = data.drinks[0].strInstructions.split("\n");
+              instructions.forEach((instruction) => {
+                if (instruction.trim() !== "") {
+                  const li = document.createElement("li");
+                  li.textContent = instruction.trim();
+                  recipeList.appendChild(li);
+                }
+              });
             });
         });
         ing1Li.textContent = drink.strDrink;
@@ -79,6 +110,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
   fetch(`${url}filter.php?i=${Ing2}`)
     .then((r) => r.json())
     .then((data) => {
+      //loops through object items for data and adds event listener for new element
       for (const drink of data.drinks) {
         const ing2Li = document.createElement("li");
         ing2Li.addEventListener("click", (e) => {
@@ -91,10 +123,38 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
           fetch(`${url}lookup.php?i=${drinkId}`)
             .then((r) => r.json())
             .then((data) => {
+              //image
               const displayImageDiv = document.querySelector("#cocktail-image");
               const drinkImg = data.drinks[0].strDrinkThumb;
               displayImageDiv.src = drinkImg;
               displayImageDiv.alt = drinkName;
+              //ingredient
+              const ingredientsList = document.getElementById("Ingredients-ul");
+              ingredientsList.innerHTML = "";
+              const ingredients = [];
+              for (let i = 1; i <= 15; i++) {
+                const ingredientName = data.drinks[0][`strIngredient${i}`];
+                const measure = data.drinks[0][`strMeasure${i}`];
+                if (ingredientName && ingredientName.trim() !== "") {
+                  ingredients.push(`${measure} ${ingredientName}`);
+                }
+              }
+              ingredients.forEach((ingredient) => {
+                const li = document.createElement("li");
+                li.textContent = ingredient;
+                ingredientsList.appendChild(li);
+              });
+              //recipe
+              const recipeList = document.getElementById("Recipe-ul");
+              recipeList.innerHTML = "";
+              const instructions = data.drinks[0].strInstructions.split("\n");
+              instructions.forEach((instruction) => {
+                if (instruction.trim() !== "") {
+                  const li = document.createElement("li");
+                  li.textContent = instruction.trim();
+                  recipeList.appendChild(li);
+                }
+              });
             });
         });
         ing2Li.textContent = drink.strDrink;
@@ -105,6 +165,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
   fetch(`${url}filter.php?i=${Ing3}`)
     .then((r) => r.json())
     .then((data) => {
+      //loops through object items for data and adds event listener for new element
       for (const drink of data.drinks) {
         const ing3Li = document.createElement("li");
         ing3Li.addEventListener("click", (e) => {
@@ -117,10 +178,38 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
           fetch(`${url}lookup.php?i=${drinkId}`)
             .then((r) => r.json())
             .then((data) => {
+              //image
               const displayImageDiv = document.querySelector("#cocktail-image");
               const drinkImg = data.drinks[0].strDrinkThumb;
               displayImageDiv.src = drinkImg;
               displayImageDiv.alt = drinkName;
+              //ingredient
+              const ingredientsList = document.getElementById("Ingredients-ul");
+              ingredientsList.innerHTML = "";
+              const ingredients = [];
+              for (let i = 1; i <= 15; i++) {
+                const ingredientName = data.drinks[0][`strIngredient${i}`];
+                const measure = data.drinks[0][`strMeasure${i}`];
+                if (ingredientName && ingredientName.trim() !== "") {
+                  ingredients.push(`${measure} ${ingredientName}`);
+                }
+              }
+              ingredients.forEach((ingredient) => {
+                const li = document.createElement("li");
+                li.textContent = ingredient;
+                ingredientsList.appendChild(li);
+              });
+              //recipe
+              const recipeList = document.getElementById("Recipe-ul");
+              recipeList.innerHTML = "";
+              const instructions = data.drinks[0].strInstructions.split("\n");
+              instructions.forEach((instruction) => {
+                if (instruction.trim() !== "") {
+                  const li = document.createElement("li");
+                  li.textContent = instruction.trim();
+                  recipeList.appendChild(li);
+                }
+              });
             });
         });
         ing3Li.textContent = drink.strDrink;
@@ -130,116 +219,62 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
     });
 };
 
-const availableDrinksClickEvent = () => {
-  availableDrinkList.addEventListener("click", function (event) {
-    const clickedElement = event.target;
-    if (clickedElement.tagName === "OL") {
-      const drinkId = clickedElement.id;
-      const drinkName = clickedElement.textContent;
-      const cocktailElement = document.querySelector(".cocktail-name");
-      cocktailElement.textContent = drinkName;
-      addSaveFavoriteClickEvent(drinkId);
-      fetch(`${url}lookup.php?i=${drinkId}`)
-        .then((r) => r.json())
-        .then((data) => {
-          const displayImageDiv = document.querySelector("#cocktail-image");
-          const drinkImg = data.drinks[0].strDrinkThumb;
-          displayImageDiv.src = drinkImg;
-          displayImageDiv.alt = drinkName;
-          console.log(drinkImg);
-
-          //ingredient
-          const ingredientsList = document.getElementById("Ingredients-ul");
-          ingredientsList.innerHTML = "";
-
-          const ingredients = [];
-          for (let i = 1; i <= 15; i++) {
-            const ingredientName = data.drinks[0][`strIngredient${i}`];
-            const measure = data.drinks[0][`strMeasure${i}`];
-            if (ingredientName && ingredientName.trim() !== "") {
-              ingredients.push(`${measure} ${ingredientName}`);
-            }
-          }
-          ingredients.forEach((ingredient) => {
-            const li = document.createElement("li");
-            li.textContent = ingredient;
-            ingredientsList.appendChild(li);
-          });
-
-         //recipe
-          const recipeList = document.getElementById("Recipe-ul");
-          recipeList.innerHTML = ""; 
-
-          const instructions = data.drinks[0].strInstructions.split('\n');
-          instructions.forEach(instruction => {
-            if (instruction.trim() !== "") {
-              const li = document.createElement("li");
-              li.textContent = instruction.trim();
-              recipeList.appendChild(li);
-            }
-          });
-        })
-        .catch((error) => {
-        });
-    }
-  });
-};
-
-
+//add click event to save favorite button and invoke handle favorite
 const addSaveFavoriteClickEvent = (drinkId) => {
   const saveFavoriteButtons = document.querySelector("#favorites");
   saveFavoriteButtons.addEventListener("click", (e) => {
-    handleFavorite();
+    handleFavorite(drinkId);
   });
 };
 
-const handleFavorite = () => {
+//when invoked, creates li element inside favorites list for drink that was displayed, saves id
+const handleFavorite = (drinkId) => {
   const favoritesList = document.querySelector("#favoritesList");
   const li = document.createElement("li");
+  li.addEventListener("click", (e) => {
+    console.log(`${drinkId} clicked`);
+    handleClick(drinkId);
+  });
   li.textContent = selectedDrink.strDrink;
   li.className = "favoriteItem";
   li.id = selectedDrink.idDrink;
   favoritesList.append(li);
   console.log(li);
-  console.log(selectedDrink.idDrink);
   createFavoriteListClickEvent(selectedDrink.idDrink);
 };
 
+//waits for dom to load, then invokes main
 document.addEventListener("DOMContentLoaded", () => {
-  //full execution
   main();
 });
 
+//invokes initial form population event and event listener functions
 const main = () => {
   populateIngredients();
   createSubmitListener();
   addSaveFavoriteClickEvent();
 };
 
-const createFavoriteListClickEvent = (drinkId) => {
-  const favoriteItem = document.querySelector(".favoriteItem");
-  favoriteItem.addEventListener("click", (e) => {
-    console.log(`${drinkId} clicked`);
-    handleClick(drinkId);
-  });
-};
-
 const ingredientsList = document.getElementById("Ingredients-ul");
 const recipeElement = document.querySelector("#Recipe-ul");
+
+//refreshes ingredients and recipes lists
+//repopulates DOM with clicked favorite Li data based on fetch with Id
 const handleClick = (drinkId) => {
+  console.log(`handle click ${drinkId}`);
   fetch(`${url}lookup.php?i=${drinkId}`)
     .then((r) => r.json())
     .then((data) => {
+      //name
+      const cocktailName = document.querySelector(".cocktail-name");
+      cocktailName.textContent = data.drinks[0].strDrink;
+      //image
+      const displayImageDiv = document.querySelector("#cocktail-image");
+      displayImageDiv.src = data.drinks[0].strDrinkThumb;
+      displayImageDiv.alt = data.drinks[0].strDrink;
+      //ingredient
+      const ingredientsList = document.getElementById("Ingredients-ul");
       ingredientsList.innerHTML = "";
-      recipeElement.innerHTML = "";
-      const nameElement = document.querySelector(".cocktail-name");
-      nameElement.textContent = data.drinks[0].strDrink;
-      const imgElement = document.querySelector("#cocktail-image");
-      imgElement.src = data.drinks[0].strDrinkThumb;
-      imgElement.alt = data.drinks[0].strDrink;
-      const newRecipe = document.createElement("li");
-      newRecipe.textContent = data.drinks[0].strInstructions;
-      recipeElement.append(newRecipe);
       const ingredients = [];
       for (let i = 1; i <= 15; i++) {
         const ingredientName = data.drinks[0][`strIngredient${i}`];
@@ -252,6 +287,17 @@ const handleClick = (drinkId) => {
         const li = document.createElement("li");
         li.textContent = ingredient;
         ingredientsList.appendChild(li);
+      });
+      //recipe
+      const recipeList = document.getElementById("Recipe-ul");
+      recipeList.innerHTML = "";
+      const instructions = data.drinks[0].strInstructions.split("\n");
+      instructions.forEach((instruction) => {
+        if (instruction.trim() !== "") {
+          const li = document.createElement("li");
+          li.textContent = instruction.trim();
+          recipeList.appendChild(li);
+        }
       });
     });
 };
