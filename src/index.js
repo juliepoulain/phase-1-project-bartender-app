@@ -100,8 +100,22 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
                   recipeList.appendChild(li);
                 }
               });
+              //create button in DOM if button is not already there
+              const buttonDiv = document.querySelector("#buttonDiv");
+              if (buttonDiv.innerHTML === "") {
+                console.log("true");
+                const button = document.createElement("button");
+                button.id = "favorites";
+                button.textContent = "SAVE TO FAVORITES";
+                buttonDiv.append(button);
+                button.addEventListener("click", (e) => {
+                  handleFavorite(drinkId);
+                  buttonDiv.innerHTML = "";
+                });
+              }
             });
         });
+        //append Li element to dom
         ing1Li.textContent = drink.strDrink;
         ing1Li.id = drink.idDrink;
         availableDrinkList.append(ing1Li);
@@ -155,8 +169,22 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
                   recipeList.appendChild(li);
                 }
               });
+              //create button in DOM if button is not already there
+              const buttonDiv = document.querySelector("#buttonDiv");
+              if (buttonDiv.innerHTML === "") {
+                console.log("true");
+                const button = document.createElement("button");
+                button.id = "favorites";
+                button.textContent = "SAVE TO FAVORITES";
+                buttonDiv.append(button);
+                button.addEventListener("click", (e) => {
+                  handleFavorite(drinkId);
+                  buttonDiv.innerHTML = "";
+                });
+              }
             });
         });
+        //append new li element to dom availableDrinkList
         ing2Li.textContent = drink.strDrink;
         ing2Li.id = drink.idDrink;
         availableDrinkList.append(ing2Li);
@@ -210,6 +238,19 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
                   recipeList.appendChild(li);
                 }
               });
+              //create button in DOM if button is not already there
+              const buttonDiv = document.querySelector("#buttonDiv");
+              if (buttonDiv.innerHTML === "") {
+                console.log("true");
+                const button = document.createElement("button");
+                button.id = "favorites";
+                button.textContent = "SAVE TO FAVORITES";
+                buttonDiv.append(button);
+                button.addEventListener("click", (e) => {
+                  handleFavorite(drinkId);
+                  buttonDiv.innerHTML = "";
+                });
+              }
             });
         });
         ing3Li.textContent = drink.strDrink;
@@ -217,14 +258,6 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
         availableDrinkList.append(ing3Li);
       }
     });
-};
-
-//add click event to save favorite button and invoke handle favorite
-const addSaveFavoriteClickEvent = (drinkId) => {
-  const saveFavoriteButtons = document.querySelector("#favorites");
-  saveFavoriteButtons.addEventListener("click", (e) => {
-    handleFavorite(drinkId);
-  });
 };
 
 //when invoked, creates li element inside favorites list for drink that was displayed, saves id
@@ -240,7 +273,7 @@ const handleFavorite = (drinkId) => {
   li.id = selectedDrink.idDrink;
   favoritesList.append(li);
   console.log(li);
-  createFavoriteListClickEvent(selectedDrink.idDrink);
+  handleClick(selectedDrink.idDrink);
 };
 
 //waits for dom to load, then invokes main
@@ -252,7 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const main = () => {
   populateIngredients();
   createSubmitListener();
-  addSaveFavoriteClickEvent();
 };
 
 const ingredientsList = document.getElementById("Ingredients-ul");
