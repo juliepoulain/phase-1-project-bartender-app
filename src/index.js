@@ -45,6 +45,8 @@ const populateDrinksInitial = () => {
     .then((cocktails) => {});
 };
 
+let selectedDrink;
+
 const availableDrinkList = document.querySelector("#availableDrinks");
 const handleSubmit = (Ing1, Ing2, Ing3) => {
   availableDrinkList.innerHTML = "";
@@ -52,30 +54,78 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
     .then((r) => r.json())
     .then((data) => {
       for (const drink of data.drinks) {
-        const ing1Ol = document.createElement("ol");
-        ing1Ol.textContent = drink.strDrink;
-        ing1Ol.id = drink.idDrink;
-        availableDrinkList.append(ing1Ol);
+        const ing1Li = document.createElement("li");
+        ing1Li.addEventListener("click", (e) => {
+          const clickedElement = e.target;
+          const drinkId = clickedElement.id;
+          const drinkName = clickedElement.textContent;
+          const cocktailElement = document.querySelector(".cocktail-name");
+          cocktailElement.textContent = drinkName;
+          selectedDrink = drink;
+          fetch(`${url}lookup.php?i=${drinkId}`)
+            .then((r) => r.json())
+            .then((data) => {
+              const displayImageDiv = document.querySelector("#cocktail-image");
+              const drinkImg = data.drinks[0].strDrinkThumb;
+              displayImageDiv.src = drinkImg;
+              displayImageDiv.alt = drinkName;
+            });
+        });
+        ing1Li.textContent = drink.strDrink;
+        ing1Li.id = drink.idDrink;
+        availableDrinkList.append(ing1Li);
       }
     });
   fetch(`${url}filter.php?i=${Ing2}`)
     .then((r) => r.json())
     .then((data) => {
       for (const drink of data.drinks) {
-        const ing2Ol = document.createElement("ol");
-        ing2Ol.textContent = drink.strDrink;
-        ing2Ol.id = drink.idDrink;
-        availableDrinkList.append(ing2Ol);
+        const ing2Li = document.createElement("li");
+        ing2Li.addEventListener("click", (e) => {
+          const clickedElement = e.target;
+          const drinkId = clickedElement.id;
+          const drinkName = clickedElement.textContent;
+          const cocktailElement = document.querySelector(".cocktail-name");
+          cocktailElement.textContent = drinkName;
+          selectedDrink = drink;
+          fetch(`${url}lookup.php?i=${drinkId}`)
+            .then((r) => r.json())
+            .then((data) => {
+              const displayImageDiv = document.querySelector("#cocktail-image");
+              const drinkImg = data.drinks[0].strDrinkThumb;
+              displayImageDiv.src = drinkImg;
+              displayImageDiv.alt = drinkName;
+            });
+        });
+        ing2Li.textContent = drink.strDrink;
+        ing2Li.id = drink.idDrink;
+        availableDrinkList.append(ing2Li);
       }
     });
   fetch(`${url}filter.php?i=${Ing3}`)
     .then((r) => r.json())
     .then((data) => {
       for (const drink of data.drinks) {
-        const ing3Ol = document.createElement("ol");
-        ing3Ol.textContent = drink.strDrink;
-        ing3Ol.id = drink.idDrink;
-        availableDrinkList.append(ing3Ol);
+        const ing3Li = document.createElement("li");
+        ing3Li.addEventListener("click", (e) => {
+          const clickedElement = e.target;
+          const drinkId = clickedElement.id;
+          const drinkName = clickedElement.textContent;
+          const cocktailElement = document.querySelector(".cocktail-name");
+          cocktailElement.textContent = drinkName;
+          selectedDrink = drink;
+          fetch(`${url}lookup.php?i=${drinkId}`)
+            .then((r) => r.json())
+            .then((data) => {
+              const displayImageDiv = document.querySelector("#cocktail-image");
+              const drinkImg = data.drinks[0].strDrinkThumb;
+              displayImageDiv.src = drinkImg;
+              displayImageDiv.alt = drinkName;
+            });
+        });
+        ing3Li.textContent = drink.strDrink;
+        ing3Li.id = drink.idDrink;
+        availableDrinkList.append(ing3Li);
       }
     });
 };
@@ -136,35 +186,23 @@ const availableDrinksClickEvent = () => {
 };
 
 
-const addSaveFavoriteClickEvent = () => {
-        });
-    }
-  });
-};
-
 const addSaveFavoriteClickEvent = (drinkId) => {
-  console.log(drinkId);
-  const saveFavoriteButtons = document.querySelectorAll("#favorites");
-  saveFavoriteButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const selectedDrink =
-        document.querySelector(".cocktail-name").textContent;
-      console.log(selectedDrink);
-      handleFavorite(selectedDrink, drinkId);
-    });
+  const saveFavoriteButtons = document.querySelector("#favorites");
+  saveFavoriteButtons.addEventListener("click", (e) => {
+    handleFavorite();
   });
 };
 
-const handleFavorite = (selectedDrink, drinkId) => {
+const handleFavorite = () => {
   const favoritesList = document.querySelector("#favoritesList");
-  const ol = document.createElement("ol");
-  ol.textContent = selectedDrink;
-  ol.className = "favoriteItem";
-  ol.id = drinkId;
-  favoritesList.append(ol);
-  console.log(ol);
-  console.log(drinkId);
-  createFavoriteListClickEvent(drinkId);
+  const li = document.createElement("li");
+  li.textContent = selectedDrink.strDrink;
+  li.className = "favoriteItem";
+  li.id = selectedDrink.idDrink;
+  favoritesList.append(li);
+  console.log(li);
+  console.log(selectedDrink.idDrink);
+  createFavoriteListClickEvent(selectedDrink.idDrink);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -175,27 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const main = () => {
   populateIngredients();
   createSubmitListener();
-  availableDrinksClickEvent();
+  addSaveFavoriteClickEvent();
 };
-
-//TO DO:
-//PA: addClickEvent function from each populated drink in drinks.
-//Data will be called "drinkDataFull"
-//PA: handleClick function to populate cocktail name, picture, ingredients, recipe (pass things like drinkDataFull.)
-
-//BD: addSaveFavoriteClickEvent to create click event function for favorite button
-//BD: handleFavorite function to populate favorites list with drink name
-
-//JP: addClickEventFavorite function to add click events to favorites list items
-//JP: handleFavoritesClickEvent to repopulate cocktail name, picture, ing, recipe
-
-//addHoverEvent to picture
-//handleHoverEvent to display drink name on picture
-
-//POLISH:
-//css/layout to be prettier
-//drinks list to have scroller
-//populate drink list with drinks with ALL ingredients, etc.
 
 const createFavoriteListClickEvent = (drinkId) => {
   const favoriteItem = document.querySelector(".favoriteItem");
@@ -218,7 +237,7 @@ const handleClick = (drinkId) => {
       const imgElement = document.querySelector("#cocktail-image");
       imgElement.src = data.drinks[0].strDrinkThumb;
       imgElement.alt = data.drinks[0].strDrink;
-      const newRecipe = document.createElement("ol");
+      const newRecipe = document.createElement("li");
       newRecipe.textContent = data.drinks[0].strInstructions;
       recipeElement.append(newRecipe);
       const ingredients = [];
@@ -236,3 +255,12 @@ const handleClick = (drinkId) => {
       });
     });
 };
+
+//POLISH:
+//css/layout to be prettier
+//consider populate all drinks on intiial refresh
+//drinks list to have scroller
+//populate drink list with drinks with ALL ingredients, etc.
+//fix weird click with favorite
+//add favorites to db.json to retain data
+//consider creating cocktail name, image, ing, recipe only when necessary (no templates at start)
