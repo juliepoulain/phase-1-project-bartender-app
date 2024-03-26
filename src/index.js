@@ -48,7 +48,6 @@ const availableDrinkList = document.querySelector("#availableDrinks");
 //step 5: event listener, when triggered, fetches drink information by Id
 //step 6: event listener, when triggered, adds applicable elements to DOM from API
 //step 7: repeat steps 2-6 for ing2, and ing3 selections
-
 const handleSubmit = (Ing1, Ing2, Ing3) => {
   availableDrinkList.innerHTML = "";
   fetch(`${url}filter.php?i=${Ing1}`)
@@ -117,6 +116,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
         //append Li element to dom
         ing1Li.textContent = drink.strDrink;
         ing1Li.id = drink.idDrink;
+        ing1Li.className = "clickable";
         availableDrinkList.append(ing1Li);
       }
     });
