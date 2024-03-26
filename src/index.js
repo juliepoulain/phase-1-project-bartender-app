@@ -47,6 +47,7 @@ const populateDrinksInitial = () => {
 
 const availableDrinkList = document.querySelector("#availableDrinks");
 const handleSubmit = (Ing1, Ing2, Ing3) => {
+  availableDrinkList.innerHTML = "";
   fetch(`${url}filter.php?i=${Ing1}`)
     .then((r) => r.json())
     .then((data) => {
@@ -87,8 +88,7 @@ const availableDrinksClickEvent = () => {
       const drinkName = clickedElement.textContent;
       const cocktailElement = document.querySelector(".cocktail-name");
       cocktailElement.textContent = drinkName;
-      console.log("Clicked drink ID:", drinkId);
-      console.log("Clicked drink Name:", drinkName);
+      addSaveFavoriteClickEvent(drinkId);
       fetch(`${url}lookup.php?i=${drinkId}`)
         .then((r) => r.json())
         .then((data) => {
@@ -137,26 +137,34 @@ const availableDrinksClickEvent = () => {
 
 
 const addSaveFavoriteClickEvent = () => {
+        });
+    }
+  });
+};
+
+const addSaveFavoriteClickEvent = (drinkId) => {
+  console.log(drinkId);
   const saveFavoriteButtons = document.querySelectorAll("#favorites");
   saveFavoriteButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       const selectedDrink =
         document.querySelector(".cocktail-name").textContent;
-      const selectedDrinkId = selectedDrink.id;
-      handleFavorite(selectedDrink, selectedDrinkId);
+      console.log(selectedDrink);
+      handleFavorite(selectedDrink, drinkId);
     });
   });
 };
 
-const handleFavorite = (selectedDrink, selectedDrinkId) => {
+const handleFavorite = (selectedDrink, drinkId) => {
   const favoritesList = document.querySelector("#favoritesList");
-  const li = document.createElement("li");
-  li.textContent = selectedDrink;
-  li.className = "favoriteItem";
-  li.id = selectedDrinkId;
-  favoritesList.appendChild(li);
-  console.log(li);
-  createFavoriteListClickEvent();
+  const ol = document.createElement("ol");
+  ol.textContent = selectedDrink;
+  ol.className = "favoriteItem";
+  ol.id = drinkId;
+  favoritesList.append(ol);
+  console.log(ol);
+  console.log(drinkId);
+  createFavoriteListClickEvent(drinkId);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -168,8 +176,6 @@ const main = () => {
   populateIngredients();
   createSubmitListener();
   availableDrinksClickEvent();
-  addSaveFavoriteClickEvent();
-  getImageURL(11007);
 };
 
 //TO DO:
@@ -191,10 +197,42 @@ const main = () => {
 //drinks list to have scroller
 //populate drink list with drinks with ALL ingredients, etc.
 
-const createFavoriteListClickEvent = () => {
+const createFavoriteListClickEvent = (drinkId) => {
   const favoriteItem = document.querySelector(".favoriteItem");
   favoriteItem.addEventListener("click", (e) => {
-    console.log("favorite populated");
+    console.log(`${drinkId} clicked`);
+    handleClick(drinkId);
   });
-  handleClick();
+};
+
+const ingredientsList = document.getElementById("Ingredients-ul");
+const recipeElement = document.querySelector("#Recipe-ul");
+const handleClick = (drinkId) => {
+  fetch(`${url}lookup.php?i=${drinkId}`)
+    .then((r) => r.json())
+    .then((data) => {
+      ingredientsList.innerHTML = "";
+      recipeElement.innerHTML = "";
+      const nameElement = document.querySelector(".cocktail-name");
+      nameElement.textContent = data.drinks[0].strDrink;
+      const imgElement = document.querySelector("#cocktail-image");
+      imgElement.src = data.drinks[0].strDrinkThumb;
+      imgElement.alt = data.drinks[0].strDrink;
+      const newRecipe = document.createElement("ol");
+      newRecipe.textContent = data.drinks[0].strInstructions;
+      recipeElement.append(newRecipe);
+      const ingredients = [];
+      for (let i = 1; i <= 15; i++) {
+        const ingredientName = data.drinks[0][`strIngredient${i}`];
+        const measure = data.drinks[0][`strMeasure${i}`];
+        if (ingredientName && ingredientName.trim() !== "") {
+          ingredients.push(`${measure} ${ingredientName}`);
+        }
+      }
+      ingredients.forEach((ingredient) => {
+        const li = document.createElement("li");
+        li.textContent = ingredient;
+        ingredientsList.appendChild(li);
+      });
+    });
 };
