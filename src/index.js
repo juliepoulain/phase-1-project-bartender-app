@@ -1,5 +1,4 @@
 import { API_KEY } from "/api-key/config.js";
-console.log(API_KEY);
 
 const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
@@ -272,7 +271,6 @@ const handleFavorite = (drinkId) => {
   li.className = "favoriteItem";
   li.id = selectedDrink.idDrink;
   favoritesList.append(li);
-  console.log(li);
   handleClick(selectedDrink.idDrink);
 };
 
@@ -293,7 +291,6 @@ const recipeElement = document.querySelector("#Recipe-ul");
 //refreshes ingredients and recipes lists
 //repopulates DOM with clicked favorite Li data based on fetch with Id
 const handleClick = (drinkId) => {
-  console.log(`handle click ${drinkId}`);
   fetch(`${url}lookup.php?i=${drinkId}`)
     .then((r) => r.json())
     .then((data) => {
@@ -336,9 +333,6 @@ const handleClick = (drinkId) => {
 
 //POLISH:
 //css/layout to be prettier
-//consider populate all drinks on intiial refresh
-//drinks list to have scroller
-//populate drink list with drinks with ALL ingredients, etc.
-//fix weird click with favorite
 //add favorites to db.json to retain data
 //consider creating cocktail name, image, ing, recipe only when necessary (no templates at start)
+//consider removing second and third select fields to fix nesting
