@@ -1,36 +1,53 @@
 * {
   margin: 100;
   padding: 100;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background: rgb(72, 37, 13);
+  background-image: url(./assets/bar6.jpg);
+  max-width: 650px;
+  margin: auto;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#topheader {
+  background: #ffffff;
+  opacity: 75%;
+  margin-block-start: 60px;
+  margin-block-end: 45px;
+  padding: 10px 10px;
 }
 
 #main-title {
-  text-align: center;
-  background-color: rgb(195, 201, 237);
-  border: 2px solid black;
-  padding: 10px;
-  width: 1000px;
-}
-
-#formdiv {
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  border: 2px solid black; /* Border properties */
-  padding: 10px; /* Optional padding for better spacing */
-  width: 200px;
+  font-size: 45px;
 }
 
 .box {
-  text-align: center;
-  border: 2px solid #0c0000;
-  padding: 10px;
-  width: 200px;
+  background: #ffffff;
+  opacity: 75%;
+  margin-block-start: 60px;
+  margin-block-end: 45px;
+  padding: 20px 30px;
+  text-align: left;
 }
 
 .favorites {
-  text-align: center;
-  border: 2px solid black;
-  padding: 10px;
-  width: 200px;
+  background: #ffffff;
+  opacity: 75%;
+  margin-block-start: 60px;
+  margin-block-end: 45px;
+  padding: 10px 30px;
+  text-align: left;
+}
+
+.cocktail-name {
+  background: #ffffff;
+  opacity: 75%;
+  margin-block-start: 60px;
+  margin-block-end: 45px;
+  padding: 10px 10px;
 }
