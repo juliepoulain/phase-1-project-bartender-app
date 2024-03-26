@@ -187,6 +187,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
         ing2Li.textContent = drink.strDrink;
         ing2Li.id = drink.idDrink;
         availableDrinkList.append(ing2Li);
+        ing2Li.className = "clickable";
       }
     });
   fetch(`${url}filter.php?i=${Ing3}`)
@@ -255,6 +256,7 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
         ing3Li.textContent = drink.strDrink;
         ing3Li.id = drink.idDrink;
         availableDrinkList.append(ing3Li);
+        ing3Li.className = "clickable";
       }
     });
 };
