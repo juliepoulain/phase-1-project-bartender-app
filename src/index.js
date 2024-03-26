@@ -130,6 +130,62 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
     });
 };
 
+const availableDrinksClickEvent = () => {
+  availableDrinkList.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    if (clickedElement.tagName === "OL") {
+      const drinkId = clickedElement.id;
+      const drinkName = clickedElement.textContent;
+      const cocktailElement = document.querySelector(".cocktail-name");
+      cocktailElement.textContent = drinkName;
+      addSaveFavoriteClickEvent(drinkId);
+      fetch(`${url}lookup.php?i=${drinkId}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const displayImageDiv = document.querySelector("#cocktail-image");
+          const drinkImg = data.drinks[0].strDrinkThumb;
+          displayImageDiv.src = drinkImg;
+          displayImageDiv.alt = drinkName;
+          console.log(drinkImg);
+
+          //ingredient
+          const ingredientsList = document.getElementById("Ingredients-ul");
+          ingredientsList.innerHTML = "";
+
+          const ingredients = [];
+          for (let i = 1; i <= 15; i++) {
+            const ingredientName = data.drinks[0][`strIngredient${i}`];
+            const measure = data.drinks[0][`strMeasure${i}`];
+            if (ingredientName && ingredientName.trim() !== "") {
+              ingredients.push(`${measure} ${ingredientName}`);
+            }
+          }
+          ingredients.forEach((ingredient) => {
+            const li = document.createElement("li");
+            li.textContent = ingredient;
+            ingredientsList.appendChild(li);
+          });
+
+         //recipe
+          const recipeList = document.getElementById("Recipe-ul");
+          recipeList.innerHTML = ""; 
+
+          const instructions = data.drinks[0].strInstructions.split('\n');
+          instructions.forEach(instruction => {
+            if (instruction.trim() !== "") {
+              const li = document.createElement("li");
+              li.textContent = instruction.trim();
+              recipeList.appendChild(li);
+            }
+          });
+        })
+        .catch((error) => {
+        });
+    }
+  });
+};
+
+
 const addSaveFavoriteClickEvent = (drinkId) => {
   const saveFavoriteButtons = document.querySelector("#favorites");
   saveFavoriteButtons.addEventListener("click", (e) => {
