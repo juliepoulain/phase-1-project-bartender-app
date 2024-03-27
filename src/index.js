@@ -3,8 +3,6 @@ import { API_KEY } from "/api-key/config.js";
 const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
 const ingredientSelect1 = document.querySelector("#ingredient-select1");
-const ingredientSelect2 = document.querySelector("#ingredient-select2");
-const ingredientSelect3 = document.querySelector("#ingredient-select3");
 
 //adds available drink ingredients from API to 3 dropdown menus
 const populateIngredients = () => {
@@ -15,11 +13,7 @@ const populateIngredients = () => {
         const selectOption = document.createElement("option");
         selectOption.value = ingredient.strIngredient1;
         selectOption.textContent = ingredient.strIngredient1;
-        const selectOption2 = selectOption.cloneNode("true");
-        const selectOption3 = selectOption.cloneNode("true");
         ingredientSelect1.appendChild(selectOption);
-        ingredientSelect2.appendChild(selectOption2);
-        ingredientSelect3.appendChild(selectOption3);
       }
     });
 };
@@ -31,9 +25,7 @@ const createSubmitListener = () => {
     e.preventDefault();
     console.log("Form Submitted");
     const Ing1 = e.target["select-ingredient1"].value;
-    const Ing2 = e.target["select-ingredient2"].value;
-    const Ing3 = e.target["select-ingredient3"].value;
-    handleSubmit(Ing1, Ing2, Ing3);
+    handleSubmit(Ing1);
   });
 };
 
@@ -47,8 +39,7 @@ const availableDrinkList = document.querySelector("#availableDrinks");
 //step 4: adds event listener to new LIs
 //step 5: event listener, when triggered, fetches drink information by Id
 //step 6: event listener, when triggered, adds applicable elements to DOM from API
-//step 7: repeat steps 2-6 for ing2, and ing3 selections
-const handleSubmit = (Ing1, Ing2, Ing3) => {
+const handleSubmit = (Ing1) => {
   availableDrinkList.innerHTML = "";
   fetch(`${url}filter.php?i=${Ing1}`)
     .then((r) => r.json())
@@ -118,145 +109,6 @@ const handleSubmit = (Ing1, Ing2, Ing3) => {
         ing1Li.id = drink.idDrink;
         ing1Li.className = "clickable";
         availableDrinkList.append(ing1Li);
-      }
-    });
-  fetch(`${url}filter.php?i=${Ing2}`)
-    .then((r) => r.json())
-    .then((data) => {
-      //loops through object items for data and adds event listener for new element
-      for (const drink of data.drinks) {
-        const ing2Li = document.createElement("li");
-        ing2Li.addEventListener("click", (e) => {
-          const clickedElement = e.target;
-          const drinkId = clickedElement.id;
-          const drinkName = clickedElement.textContent;
-          const cocktailElement = document.querySelector(".cocktail-name");
-          cocktailElement.textContent = drinkName;
-          selectedDrink = drink;
-          fetch(`${url}lookup.php?i=${drinkId}`)
-            .then((r) => r.json())
-            .then((data) => {
-              //image
-              const displayImageDiv = document.querySelector("#cocktail-image");
-              const drinkImg = data.drinks[0].strDrinkThumb;
-              displayImageDiv.src = drinkImg;
-              displayImageDiv.alt = drinkName;
-              //ingredient
-              const ingredientsList = document.getElementById("Ingredients-ul");
-              ingredientsList.innerHTML = "";
-              const ingredients = [];
-              for (let i = 1; i <= 15; i++) {
-                const ingredientName = data.drinks[0][`strIngredient${i}`];
-                const measure = data.drinks[0][`strMeasure${i}`];
-                if (ingredientName && ingredientName.trim() !== "") {
-                  ingredients.push(`${measure} ${ingredientName}`);
-                }
-              }
-              ingredients.forEach((ingredient) => {
-                const li = document.createElement("li");
-                li.textContent = ingredient;
-                ingredientsList.appendChild(li);
-              });
-              //recipe
-              const recipeList = document.getElementById("Recipe-ul");
-              recipeList.innerHTML = "";
-              const instructions = data.drinks[0].strInstructions.split("\n");
-              instructions.forEach((instruction) => {
-                if (instruction.trim() !== "") {
-                  const li = document.createElement("li");
-                  li.textContent = instruction.trim();
-                  recipeList.appendChild(li);
-                }
-              });
-              //create button in DOM if button is not already there
-              const buttonDiv = document.querySelector("#buttonDiv");
-              if (buttonDiv.innerHTML === "") {
-                console.log("true");
-                const button = document.createElement("button");
-                button.id = "favorites";
-                button.textContent = "SAVE TO FAVORITES";
-                buttonDiv.append(button);
-                button.addEventListener("click", (e) => {
-                  handleFavorite(drinkId);
-                  buttonDiv.innerHTML = "";
-                });
-              }
-            });
-        });
-        //append new li element to dom availableDrinkList
-        ing2Li.textContent = drink.strDrink;
-        ing2Li.id = drink.idDrink;
-        availableDrinkList.append(ing2Li);
-        ing2Li.className = "clickable";
-      }
-    });
-  fetch(`${url}filter.php?i=${Ing3}`)
-    .then((r) => r.json())
-    .then((data) => {
-      //loops through object items for data and adds event listener for new element
-      for (const drink of data.drinks) {
-        const ing3Li = document.createElement("li");
-        ing3Li.addEventListener("click", (e) => {
-          const clickedElement = e.target;
-          const drinkId = clickedElement.id;
-          const drinkName = clickedElement.textContent;
-          const cocktailElement = document.querySelector(".cocktail-name");
-          cocktailElement.textContent = drinkName;
-          selectedDrink = drink;
-          fetch(`${url}lookup.php?i=${drinkId}`)
-            .then((r) => r.json())
-            .then((data) => {
-              //image
-              const displayImageDiv = document.querySelector("#cocktail-image");
-              const drinkImg = data.drinks[0].strDrinkThumb;
-              displayImageDiv.src = drinkImg;
-              displayImageDiv.alt = drinkName;
-              //ingredient
-              const ingredientsList = document.getElementById("Ingredients-ul");
-              ingredientsList.innerHTML = "";
-              const ingredients = [];
-              for (let i = 1; i <= 15; i++) {
-                const ingredientName = data.drinks[0][`strIngredient${i}`];
-                const measure = data.drinks[0][`strMeasure${i}`];
-                if (ingredientName && ingredientName.trim() !== "") {
-                  ingredients.push(`${measure} ${ingredientName}`);
-                }
-              }
-              ingredients.forEach((ingredient) => {
-                const li = document.createElement("li");
-                li.textContent = ingredient;
-                ingredientsList.appendChild(li);
-              });
-              //recipe
-              const recipeList = document.getElementById("Recipe-ul");
-              recipeList.innerHTML = "";
-              const instructions = data.drinks[0].strInstructions.split("\n");
-              instructions.forEach((instruction) => {
-                if (instruction.trim() !== "") {
-                  const li = document.createElement("li");
-                  li.textContent = instruction.trim();
-                  recipeList.appendChild(li);
-                }
-              });
-              //create button in DOM if button is not already there
-              const buttonDiv = document.querySelector("#buttonDiv");
-              if (buttonDiv.innerHTML === "") {
-                console.log("true");
-                const button = document.createElement("button");
-                button.id = "favorites";
-                button.textContent = "SAVE TO FAVORITES";
-                buttonDiv.append(button);
-                button.addEventListener("click", (e) => {
-                  handleFavorite(drinkId);
-                  buttonDiv.innerHTML = "";
-                });
-              }
-            });
-        });
-        ing3Li.textContent = drink.strDrink;
-        ing3Li.id = drink.idDrink;
-        availableDrinkList.append(ing3Li);
-        ing3Li.className = "clickable";
       }
     });
 };
