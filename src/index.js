@@ -18,13 +18,15 @@ const populateIngredients = () => {
     });
 };
 
-//adds submit listener to see cocktail ingredients form and creates variables for ing1, ing2, and ing3. Invokes handleSubmit
+//adds submit listener to see cocktail options form and creates variables for ing1, ing2, and ing3. Invokes handleSubmit
 const createSubmitListener = () => {
   const form = document.querySelector("#form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     console.log("Form Submitted");
     const Ing1 = e.target["select-ingredient1"].value;
+    const availableDrinks = document.querySelector("#available-drinks");
+    availableDrinks.scrollIntoView({ behavior: "smooth" });
     handleSubmit(Ing1);
   });
 };
@@ -100,7 +102,11 @@ const handleSubmit = (Ing1) => {
                 button.addEventListener("click", (e) => {
                   handleFavorite(drinkId);
                   buttonDiv.innerHTML = "";
+                  const favoritesDiv = document.querySelector("#favoritesDiv");
+                  favoritesDiv.scrollIntoView({behavior: "smooth"});
                 });
+                const cocktailNameDiv = document.querySelector("#cocktail-name");
+                cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
               }
             });
         });
@@ -120,12 +126,13 @@ const handleFavorite = (drinkId) => {
   li.addEventListener("click", (e) => {
     console.log(`${drinkId} clicked`);
     handleClick(drinkId);
+    const cocktailNameDiv = document.querySelector("#cocktail-name");
+    cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
   });
   li.textContent = selectedDrink.strDrink;
   li.className = "favoriteItem";
   li.id = selectedDrink.idDrink;
   favoritesList.append(li);
-  handleClick(selectedDrink.idDrink);
 };
 
 //waits for dom to load, then invokes main
