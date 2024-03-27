@@ -25,6 +25,7 @@ const createSubmitListener = () => {
     e.preventDefault();
     console.log("Form Submitted");
     const Ing1 = e.target["select-ingredient1"].value;
+    //scrolls to drink section when see cocktail options is clicked
     const availableDrinks = document.querySelector("#available-drinks");
     availableDrinks.scrollIntoView({ behavior: "smooth" });
     handleSubmit(Ing1);
@@ -102,10 +103,13 @@ const handleSubmit = (Ing1) => {
                 button.addEventListener("click", (e) => {
                   handleFavorite(drinkId);
                   buttonDiv.innerHTML = "";
+                  //scrolls to favorites when add to favorites button clicked
                   const favoritesDiv = document.querySelector("#favoritesDiv");
-                  favoritesDiv.scrollIntoView({behavior: "smooth"});
+                  favoritesDiv.scrollIntoView({ behavior: "smooth" });
                 });
-                const cocktailNameDiv = document.querySelector("#cocktail-name");
+                //scrolls to cocktail section when cocktail li is clicked
+                const cocktailNameDiv =
+                  document.querySelector("#cocktail-name");
                 cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
               }
             });
@@ -126,6 +130,7 @@ const handleFavorite = (drinkId) => {
   li.addEventListener("click", (e) => {
     console.log(`${drinkId} clicked`);
     handleClick(drinkId);
+    //scrolls to cocktail section when favorite li is clicked
     const cocktailNameDiv = document.querySelector("#cocktail-name");
     cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
   });
@@ -144,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const main = () => {
   populateIngredients();
   createSubmitListener();
+  hoverSubmitEvent();
 };
 
 const ingredientsList = document.getElementById("Ingredients-ul");
@@ -192,8 +198,16 @@ const handleClick = (drinkId) => {
     });
 };
 
-//POLISH:
-//css/layout to be prettier
-//add favorites to db.json to retain data
-//consider creating cocktail name, image, ing, recipe only when necessary (no templates at start)
-//consider removing second and third select fields to fix nesting
+//add mouseover and mouseout events to see cocktail options button to change color
+const hoverSubmitEvent = () => {
+  const formSubmit = document.querySelector("#form-submit");
+  formSubmit.addEventListener("mouseover", function () {
+    formSubmit.style.backgroundColor = "rgb(148, 93, 167)";
+    formSubmit.style.color = "white";
+  });
+  formSubmit.addEventListener("mouseout", function () {
+    formSubmit.style.backgroundColor = "rgb(86, 15, 109)";
+    formSubmit.style.color = "white";
+    console.log("mouse over button");
+  });
+};
