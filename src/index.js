@@ -56,6 +56,9 @@ const handleSubmit = (Ing1) => {
           const drinkName = clickedElement.textContent;
           const cocktailElement = document.querySelector(".cocktail-name");
           cocktailElement.textContent = drinkName;
+          //scrolls to cocktail section when cocktail li is clicked
+          const cocktailNameDiv = document.querySelector("#cocktail-name");
+          cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
           selectedDrink = drink;
           fetch(`${url}lookup.php?i=${drinkId}`)
             .then((r) => r.json())
@@ -107,10 +110,6 @@ const handleSubmit = (Ing1) => {
                   const favoritesDiv = document.querySelector("#favoritesDiv");
                   favoritesDiv.scrollIntoView({ behavior: "smooth" });
                 });
-                //scrolls to cocktail section when cocktail li is clicked
-                const cocktailNameDiv =
-                  document.querySelector("#cocktail-name");
-                cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
               }
             });
         });
