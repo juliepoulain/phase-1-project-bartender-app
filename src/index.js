@@ -4,7 +4,7 @@ const url = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}/`;
 
 const ingredientSelect1 = document.querySelector("#ingredient-select1");
 
-//adds available drink ingredients from API to 3 dropdown menus
+//adds available drink ingredients from API to dropdown menu
 const populateIngredients = () => {
   fetch(`${url}list.php?i=list`)
     .then((r) => r.json())
@@ -37,10 +37,10 @@ const availableDrinkList = document.querySelector("#availableDrinks");
 
 //when invoked from submit form event:
 //step 1: refresh available drink list
-//step 2: fetch drinks from API based on FIRST ingredient selection query.
+//step 2: fetch drinks from API based on ingredient selection query.
 //step 3: Populates available drink list with all avaialble drinks based on query inside new LIs
-//step 4: adds event listener to new LIs
-//step 5: event listener, when triggered, fetches drink information by Id
+//step 4: adds click event listener to new LIs
+//step 5: event listener, when triggered, fetches drink information by selected drink Id
 //step 6: event listener, when triggered, adds applicable elements to DOM from API
 const handleSubmit = (Ing1) => {
   availableDrinkList.innerHTML = "";
