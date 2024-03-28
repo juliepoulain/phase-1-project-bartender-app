@@ -1,0 +1,49 @@
+{
+  "favorites": [
+    {
+      "id": "9f68",
+      "cocktailName": "Whiskey Sour",
+      "cocktailId": "11004"
+    },
+    {
+      "id": "5eac",
+      "cocktailName": "Amaretto Tea",
+      "cocktailId": "11029"
+    },
+    {
+      "id": "780b",
+      "cocktailName": "Lone Tree Cooler",
+      "cocktailId": "11666"
+    },
+    {
+      "id": "5182",
+      "cocktailName": "Loch Lomond",
+      "cocktailId": "11658"
+    },
+    {
+      "id": "dcc3",
+      "cocktailName": "Rose",
+      "cocktailId": "17208"
+    },
+    {
+      "id": "5192",
+      "cocktailName": "Dry Martini",
+      "cocktailId": "11005"
+    },
+    {
+      "id": "19c1",
+      "cocktailName": "City Slicker",
+      "cocktailId": "11251"
+    },
+    {
+      "id": "2776",
+      "cocktailName": "White Lady",
+      "cocktailId": "17194"
+    },
+    {
+      "id": "1384",
+      "cocktailName": "Golden dream",
+      "cocktailId": "17199"
+    }
+  ]
+}

@@ -98,14 +98,32 @@ const handleSubmit = (Ing1) => {
               //create button in DOM if button is not already there
               const buttonDiv = document.querySelector("#buttonDiv");
               if (buttonDiv.innerHTML === "") {
-                console.log("true");
                 const button = document.createElement("button");
                 button.id = "favorites";
                 button.textContent = "SAVE TO FAVORITES";
                 buttonDiv.append(button);
                 button.addEventListener("click", (e) => {
-                  handleFavorite(drinkId);
+                  //post favoriteObject to db.json
+                  const favoriteObject = {
+                    cocktailName: selectedDrink.strDrink,
+                    cocktailId: selectedDrink.idDrink,
+                  };
+                  const addFavoriteToDb = async () => {
+                    const response = await fetch(
+                      "http://localhost:3000/favorites",
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                        },
+                        body: JSON.stringify(favoriteObject),
+                      }
+                    );
+                  };
+                  addFavoriteToDb();
                   buttonDiv.innerHTML = "";
+                  handleFavorite();
                   //scrolls to favorites when add to favorites button clicked
                   const favoritesDiv = document.querySelector("#favoritesDiv");
                   favoritesDiv.scrollIntoView({ behavior: "smooth" });
@@ -122,21 +140,28 @@ const handleSubmit = (Ing1) => {
     });
 };
 
-//when invoked, creates li element inside favorites list for drink that was displayed, saves id
-const handleFavorite = (drinkId) => {
-  const favoritesList = document.querySelector("#favoritesList");
-  const li = document.createElement("li");
-  li.addEventListener("click", (e) => {
-    console.log(`${drinkId} clicked`);
-    handleClick(drinkId);
-    //scrolls to cocktail section when favorite li is clicked
-    const cocktailNameDiv = document.querySelector("#cocktail-name");
-    cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
-  });
-  li.textContent = selectedDrink.strDrink;
-  li.className = "favoriteItem";
-  li.id = selectedDrink.idDrink;
-  favoritesList.append(li);
+//when invoked, creates li element inside favorites list from db.json
+const favoritesList = document.querySelector("#favoritesList");
+const handleFavorite = () => {
+  fetch("http://localhost:3000/favorites")
+    .then((r) => r.json())
+    .then((data) => {
+      console.log(data);
+      for (const favorite of data) {
+        const li = document.createElement("li");
+        li.textContent = favorite.cocktailName;
+        li.className = "favoriteItem";
+        li.id = favorite.id;
+        const cocktailId = favorite.cocktailId;
+        favoritesList.appendChild(li);
+        li.addEventListener("click", (e) => {
+          handleClick(cocktailId);
+          //scrolls to cocktail section when favorite li is clicked
+          const cocktailNameDiv = document.querySelector("#cocktail-name");
+          cocktailNameDiv.scrollIntoView({ behavior: "smooth" });
+        });
+      }
+    });
 };
 
 //waits for dom to load, then invokes main
