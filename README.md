@@ -19,6 +19,18 @@ With just a few clicks, you can explore an extensive library of ingredients and 
 # Installation
 Bartender Buddy must be downloaded and ran on your local device.
 
+Navigate to the main repo of Bartender Buddy. Navigate to the upper righthand side and click on Fork. Choose your preferred settings and confirm by clicking 'Create Fork'. Within your own forked repo click on 'Code' > 'Local' > 'SSH' > Copy the SSH link to your clipboard.
+
+Start a live server on your device
+
+npm install -g live-server
+
+live-server .
+
+You are now able to choose from a wide list of ingredients, Choose Cocktails of your prefernce, and favorite drinks.
+
+
+
 # Api 
 Bartender Buddy uses TheCocktailDB API to access Photo's, Ingredients, recipe, and drinks names.TheCocktailDB is a free easy to use public API.
 
