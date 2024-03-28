@@ -22,8 +22,7 @@ Bartender Buddy must be downloaded and ran on your local device.
 # Api 
 Bartender Buddy uses TheCocktailDB API to access Photo's, Ingredients, recipe, and drinks names.TheCocktailDB is a free easy to use public API.
 
-API information can be found on https://www.thecocktaildb.com/api.php
-
+API information can be found on "API""
 # License 
 This project is licensed under the MIT License
 
